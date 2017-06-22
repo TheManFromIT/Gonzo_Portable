@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var scanner = require('./routes/scanner');
+//var networks = require('./routes/networks');
 
 var app = express();
 
@@ -26,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/scanner', scanner);
+//app.use('/list', networks);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -61,5 +65,5 @@ app.use(function (err, req, res, next) {
 app.set('port', process.env.PORT || 3000);
 
 var server = app.listen(app.get('port'), function () {
-    debug('Express server listening on port ' + server.address().port);
+    console.log('GonzoJs on port ' + server.address().port);
 });
