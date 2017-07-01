@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "GonzoJs", "GonzoJs\GonzoJs\GonzoJs.njsproj", "{BB1DE317-8A5F-480F-AF92-119635FA7F8D}"
 EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "HoneydewJs", "HoneydewJs\HoneydewJs.njsproj", "{D1BBDD0C-470B-4A74-B81B-411729460860}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BB1DE317-8A5F-480F-AF92-119635FA7F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB1DE317-8A5F-480F-AF92-119635FA7F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB1DE317-8A5F-480F-AF92-119635FA7F8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1BBDD0C-470B-4A74-B81B-411729460860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1BBDD0C-470B-4A74-B81B-411729460860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1BBDD0C-470B-4A74-B81B-411729460860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1BBDD0C-470B-4A74-B81B-411729460860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

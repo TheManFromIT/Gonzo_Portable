@@ -1,0 +1,17 @@
+{
+  "name": "honeydew-js",
+  "version": "0.0.0",
+  "description": "HoneydewJs",
+  "main": "app.js",
+  "author": {
+    "name": "David.Paterson"
+  },
+  "dependencies": {
+    "seneca": "^3.3.0",
+    "seneca-auth": "^1.1.0",
+    "seneca-joi": "^1.0.1",
+    "seneca-mail": "^0.2.2",
+    "seneca-run": "^0.1.1",
+    "seneca-web": "^2.1.0"
+  }
+}
