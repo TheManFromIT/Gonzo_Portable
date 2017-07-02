@@ -10,11 +10,11 @@ block content
         th Level
         th Channel
         th Manufacturer
-        th Description
     tbody
-        for network in networks
+        for row in data
             tr
-                td=network.ssid
-                td=network.mac
-                td=network.signal_level
-                td=network.channel
+                td=row.network.ssid
+                td=row.network.mac
+                td=row.network.signal_level
+                td=row.network.channel
+                td=row.manufacturer

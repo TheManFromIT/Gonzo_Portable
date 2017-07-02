@@ -1,7 +1,8 @@
 ﻿var wifiscanner = require('node-wifiscanner2');
-var ouidb = require('./ouidb')
+var oui = require('oui');
 
 module.exports = {
+
     getNetworks: function (callback) {        
 
         wifiscanner.scan(function (err, data) {
@@ -17,15 +18,15 @@ module.exports = {
 
                 var network = data[number];
 
-                ouidb.findOUI(network.mac, function (result,record) {
+                var result = oui(network.mac);
 
-                    if (result) {
+                if (result !== null) {
+                    result = result.replace(/\n/g, " ");
+                } else {
+                    result = "UNRECOGNISED";
+                }
 
-                        var extended = { mac: network.mac, manufacturer: record.manufacturer };
-
-                    }
-
-                });
+                extendedData.push( { network: network, manufacturer: result });
 
             }
 

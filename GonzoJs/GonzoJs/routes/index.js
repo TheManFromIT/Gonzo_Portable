@@ -11,7 +11,7 @@ router.get('/', function (req, res) {
 /* GET list page. */
 router.get('/list', function (req, res) {
     wifi.getNetworks(function (data) {
-        res.render('networks', { title: 'Wireless Network List', networks: data });
+        res.render('networks', { title: 'Wireless Network List', data: data });
     });
 });
 

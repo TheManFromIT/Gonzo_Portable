@@ -30,16 +30,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
-    <Compile Include="ouidb.js">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="routes\index.js" />
     <Compile Include="routes\scanner.js" />
     <Compile Include="routes\users.js" />
     <Compile Include="wifi.js">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="data\maclist.txt" />
     <Content Include="public\images\gonzo.jpg" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
