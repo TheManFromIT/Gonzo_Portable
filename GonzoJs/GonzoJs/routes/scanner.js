@@ -9,8 +9,7 @@ router.get('/', function (req, res) {
     var data = wifi.getNetworks(function (data) {
         res.send(JSON.stringify(data));
     });
-
-    
+ 
 });
 
 module.exports = router;

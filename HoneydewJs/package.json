@@ -7,6 +7,7 @@
     "name": "David.Paterson"
   },
   "dependencies": {
+    "node-wifiscanner2": "^1.2.0",
     "seneca": "^3.3.0",
     "seneca-auth": "^1.1.0",
     "seneca-joi": "^1.0.1",

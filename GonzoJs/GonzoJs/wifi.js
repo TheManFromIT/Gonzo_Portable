@@ -1,4 +1,5 @@
 ﻿var wifiscanner = require('node-wifiscanner2');
+var ouidb = require('./ouidb')
 
 module.exports = {
     getNetworks: function (callback) {        
@@ -10,7 +11,25 @@ module.exports = {
                 return;
             }
 
-            callback(data);
+            var extendedData = [];
+
+            for (var number in data) {
+
+                var network = data[number];
+
+                ouidb.findOUI(network.mac, function (result,record) {
+
+                    if (result) {
+
+                        var extended = { mac: network.mac, manufacturer: record.manufacturer };
+
+                    }
+
+                });
+
+            }
+
+            callback(extendedData);
             
         });
 
