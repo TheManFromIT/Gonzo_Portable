@@ -26,6 +26,10 @@ module.exports = {
                     result = "UNRECOGNISED";
                 }
 
+                if (network.ssid === null || network.ssid === "") {
+                    network.ssid = "<HIDDEN>";
+                }
+
                 extendedData.push( { network: network, manufacturer: result });
 
             }
