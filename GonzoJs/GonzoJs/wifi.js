@@ -30,6 +30,9 @@ module.exports = {
 
             }
 
+            // Sort by Signal Strength and Channel
+            extendedData.sort(function (a, b) { return (a.network.channel - b.network.channel) || (a.network.signal_level - b.network.signal_level)});
+
             callback(extendedData);
             
         });
