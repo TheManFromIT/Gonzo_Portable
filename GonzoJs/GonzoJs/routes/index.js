@@ -1,7 +1,9 @@
 ﻿'use strict';
 var express = require('express');
 var router = express.Router();
-var wifi = require('../wifi.js')
+//var wifi = require('../wifi.js')
+
+var seneca = require('seneca')().client(8487, 'localhost');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -10,9 +12,14 @@ router.get('/', function (req, res) {
 
 /* GET list page. */
 router.get('/list', function (req, res) {
-    wifi.getNetworks(function (data) {
-        res.render('networks', { title: 'Wireless Network List', data: data });
+
+    seneca.act({ role: 'analysis', cmd: 'scan' }, function (error, result) {
+        res.render('networks', { title: 'Wireless Network List', data: result });
     });
+
+    //wifi.getNetworks(function (data) {
+    //    res.render('networks', { title: 'Wireless Network List', data: data });
+    //});
 });
 
 module.exports = router;

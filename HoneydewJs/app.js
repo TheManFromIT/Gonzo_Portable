@@ -1,15 +1,8 @@
 'use strict';
-var wifi = require('./modules/wifi')
-var seneca = require('seneca')()
+var seneca = require('seneca')();
 
-seneca.add('role: analysis, cmd: scan', function (msg, respond) {
+seneca.use('./modules/bunsen.js')
 
-    var data = wifi.getNetworks(function (data) {
+console.log('Starting HoneydewJs');
 
-        respond(null, { results: JSON.stringify(data) })
-
-    });
-
-});
-
-console.log('HoneydewJs Running');
+seneca.listen(8487, 'localhost');

@@ -29,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="modules\bunsen.js" />
     <Compile Include="modules\wifi.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
