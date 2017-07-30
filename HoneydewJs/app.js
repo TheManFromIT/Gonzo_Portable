@@ -1,7 +1,7 @@
 'use strict';
 var seneca = require('seneca')();
 
-seneca.use('./modules/bunsen.js')
+seneca.use('./modules/bunsen.js');
 
 console.log('Starting HoneydewJs');
 

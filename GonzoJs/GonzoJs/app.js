@@ -12,8 +12,12 @@ var users = require('./routes/users');
 var list = require('./routes/list');
 var api = require('./routes/api');
 var monitor = require('./routes/monitor');
+var status = require('./routes/status');
 
 var app = express();
+
+// Setup WebSockets
+var expressWs = require('express-ws')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,6 +36,7 @@ app.use('/users', users);
 app.use('/monitor', monitor);
 app.use('/list', list);
 app.use('/api', api);
+app.use('/status', status);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

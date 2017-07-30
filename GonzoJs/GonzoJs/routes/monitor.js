@@ -8,17 +8,19 @@ var seneca = require('seneca')().client(8487, 'localhost');
 router.get('/', function (req, res) {
 
     seneca.act({ role: 'analysis', cmd: 'scan' }, function (error, result) {
-        res.render('monitor', { title: 'Gonzo Wifi Intrusion Detection Monitor', data: result });
+        res.render('monitor', { title: 'Intrusion Detection Monitor Selection', data: result });
     });
 
 });
 
-/* GET list page. */
-router.get('/monitoring', function (req, res) {
+/* POST monitoring page. */
+router.post('/monitoring', function (req, res) {
 
-    seneca.act({ role: 'analysis', cmd: 'scan' }, function (error, result) {
-        res.render('networks', { title: 'Wireless Network List', data: result });
-    });
+    var bssid = req.param('bssid');
+    var name = req.param('network');
+
+    res.render('monitoring', { title: 'Monitor Network', network: name, bssid: bssid });
+
 
 });
 

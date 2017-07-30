@@ -7,9 +7,10 @@ var seneca = require('seneca')().client(8487, 'localhost');
 router.get('/list', function (req, res) {
 
     seneca.act({ role: 'analysis', cmd: 'scan' }, function (error, result) {
-        res.send(JSON.stringify(result));
+        res.json(result);
     });
  
 });
+
 
 module.exports = router;

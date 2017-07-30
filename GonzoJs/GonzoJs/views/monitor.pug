@@ -5,9 +5,22 @@ block content
 
   p Please Select the Network to Monitor
 
-  form(action='/monitor/monitoring',method='')
-    select
+  form(action='/monitor/monitoring', method='POST')
+    select(id='networkList', name='bssid')
         each row in data
             option(value=row.network.mac) Network #{row.network.ssid} Channel #{row.network.channel}
+    input(id='networkName', name='network',type='text',hidden='true')
     input(type='submit',value='Monitor',data-transition='fade', data-theme='c')
 
+  script(type="text/javascript").
+    $("document").ready(function(){
+        
+        // Set Default
+        $("#networkName").val($("#networkList option:selected").text());
+        
+        // Store Name of Network
+        $("#bssid").on('change', function() {
+            $("#networkName").val($("#networkList option:selected").text());
+        });
+
+    });
