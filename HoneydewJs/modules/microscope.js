@@ -1,9 +1,13 @@
 ﻿'use strict';
 var wifiscanner = require('node-wifi-scanner');
 var oui = require('oui');
+var os = require('os');
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/honeydew');
+var scanCollection = db.get('scancollection');
 
 var list = [];
-
 
 var timer = null;
 
@@ -64,6 +68,16 @@ function scan() {
 
         // Sort by Signal Strength and Channel
         extendedData.sort(function (a, b) { return a.network.channel - b.network.channel || a.network.rssi - b.network.rssi; });
+
+        // Store Data
+
+        var timeStamp = Date.now();
+        var hostName = os.hostname();
+        var osPlatform = os.type() + ' ' + os.platform() + ' ' + os.arch() + ' ' + os.release();
+
+        var record = { timestamp: timeStamp, hostname: hostName, platform: osPlatform, list: extendedData };
+
+        scanCollection.insert(record);
 
         list = extendedData;
 

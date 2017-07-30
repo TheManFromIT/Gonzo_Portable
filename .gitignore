@@ -348,3 +348,6 @@ typings/
 .env
 
 /HoneydewJs/networks.txt
+/HoneydewJs/data/diagnostic.data
+/HoneydewJs/data/journal
+/HoneydewJs/data
