@@ -3,18 +3,11 @@
 block content
   h1= title
 
-  table
-    thead
-        th SSID
-        th Channel
-        th Level
-        th MAC
-        th Manufacturer
-    tbody
-        for row in data
-            tr
-                td=row.network.ssid                
-                td=row.network.channel
-                td=row.network.rssi
-                td=row.network.mac
-                td=row.manufacturer
+  p Please Select the Network to Monitor
+
+  form(action='/monitor/monitoring',method='')
+    select
+        each row in data
+            option(value=row.network.mac) Network #{row.network.ssid} Channel #{row.network.channel}
+    input(type='submit',value='Monitor',data-transition='fade', data-theme='c')
+

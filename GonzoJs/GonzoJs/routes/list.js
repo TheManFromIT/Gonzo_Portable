@@ -10,9 +10,6 @@ router.get('/', function (req, res) {
         res.render('networks', { title: 'Wireless Network List', data: result });
     });
 
-    //wifi.getNetworks(function (data) {
-    //    res.render('networks', { title: 'Wireless Network List', data: data });
-    //});
 });
 
 module.exports = router;
