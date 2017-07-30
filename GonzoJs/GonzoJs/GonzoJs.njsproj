@@ -30,8 +30,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="routes\list.js" />
+    <Compile Include="routes\monitor.js" />
     <Compile Include="routes\index.js" />
-    <Compile Include="routes\scanner.js" />
+    <Compile Include="routes\api.js" />
     <Compile Include="routes\users.js" />
     <Content Include="public\images\gonzo.jpg" />
     <Content Include="package.json" />
@@ -40,6 +42,7 @@
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
+    <Content Include="views\monitor.pug" />
     <Content Include="views\networks.pug">
       <SubType>Code</SubType>
     </Content>
