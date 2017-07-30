@@ -19,7 +19,7 @@ block content
         $("#networkName").val($("#networkList option:selected").text());
         
         // Store Name of Network
-        $("#bssid").on('change', function() {
+        $("#networkList").on('change', function() {
             $("#networkName").val($("#networkList option:selected").text());
         });
 
