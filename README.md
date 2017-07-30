@@ -7,8 +7,8 @@ To Demo:
 2. Clone or Download Zip of Source Code [Master.zip](https://github.com/TheManFromIT/Gonzo_Portable/archive/master.zip)
 3. Execute SetupHoneydew.cmd (Once Only Per Downloaded Master.zip)
 4. Execute SetupGonzo.cmd (Once Only Per Downloaded Master.zip)
-5. Execute StartDemo.cmd
-6. Execute RunDemo.cmd
+5. Execute StartHoneydew.cmd
+6. Execute RunGonzo.cmd
 7. Navigate to http://localhost:3000
 
 **Note**: If any window closes immediately then another copy of HoneydewJs or GonzoJs is already running.
