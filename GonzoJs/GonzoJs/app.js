@@ -11,13 +11,12 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var list = require('./routes/list');
 var api = require('./routes/api');
+var location = require('./routes/location');
 var monitor = require('./routes/monitor');
 var status = require('./routes/status');
+var functions = require('./routes/functions');
 
 var app = express();
-
-// Setup WebSockets
-var expressWs = require('express-ws')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -36,7 +35,40 @@ app.use('/users', users);
 app.use('/monitor', monitor);
 app.use('/list', list);
 app.use('/api', api);
-app.use('/status', status);
+app.use('/location', location);
+app.use('/functions', functions);
+//app.use('/status', status);
+
+// Setup WebSockets
+
+// Setup WebSockets
+var wss = require('express-ws')(app).wss;
+
+// on websocket request to the root
+app.ws('/', function (ws, req) {
+    // this function gets called on each connection
+
+    // extend ws to decode messages
+    wsrpc(ws);
+
+    // define method that can be called from the client
+    ws.on('addServer', function (a, b, result) {
+        result(null, a + b);
+    });
+
+    // define method depending on the state
+    // each connected client owns its own `curr`
+    var curr = 0;
+    ws.on('next', function (result) {
+        result(null, curr++);
+    });
+
+    // call method that is defined on the client
+    ws.call('addClient', 1, 2, function (err, sum) {
+        console.log('Client: 1 + 2 = ', sum, err);
+    });
+});
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

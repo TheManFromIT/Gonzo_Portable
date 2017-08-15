@@ -30,6 +30,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="routes\functions.js" />
+    <Compile Include="routes\location.js" />
     <Compile Include="routes\status.js" />
     <Compile Include="routes\list.js" />
     <Compile Include="routes\monitor.js" />
@@ -40,6 +42,8 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="views\functions.pug" />
+    <Content Include="views\location.pug" />
     <Content Include="views\monitoring.pug" />
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />

@@ -11,6 +11,9 @@ var list = [];
 
 var timer = null;
 
+var long = 0;
+var latt = 0;
+
 module.exports = {
 
     getNetworks: function (callback) {
@@ -31,6 +34,16 @@ module.exports = {
             clearInterval(timer);
         }
 
+    },
+
+    setLocation: function (latt, long) {
+        this.latt = latt;
+        this.long = long;
+        
+    },
+
+    getLocation: function () {
+        return { latt: this.latt, long: this.long };
     }
 
 };
@@ -75,7 +88,7 @@ function scan() {
         var hostName = os.hostname();
         var osPlatform = os.type() + ' ' + os.platform() + ' ' + os.arch() + ' ' + os.release();
 
-        var record = { timestamp: timeStamp, hostname: hostName, platform: osPlatform, list: extendedData };
+        var record = { timestamp: timeStamp, longitude: long, latitude: latt, hostname: hostName, platform: osPlatform, list: extendedData };
 
         scanCollection.insert(record);
 

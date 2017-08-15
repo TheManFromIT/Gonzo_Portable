@@ -6,6 +6,18 @@ microscope.startScanning();
 
 module.exports = function bunsen(options) {
 
+    this.add('role: configuration, cmd: set, type: location', function (msg, respond) {
+
+        microscope.setLocation(msg.latt, msg.long);
+
+    });
+
+    this.add('role: configuration, cmd: get, type: location', function (msg, respond) {
+
+        respond(null, microscope.getLocation());
+
+    });
+
     this.add('role: analysis, cmd: scan', function (msg, respond) {
 
         var data = microscope.getNetworks(function (data) {

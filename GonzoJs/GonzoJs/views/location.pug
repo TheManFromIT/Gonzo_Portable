@@ -1,0 +1,68 @@
+﻿extends layout
+
+block content
+
+  h1 Welcome to #{title}
+
+  p Your IP Adress: #{publicIp}
+
+  form(id='currentLocation', method='POST', action='/location/setup')
+    fieldset
+        div#legand
+            legend Note: Any Location information is not stored or sent to any other point.
+        div.control-group
+            label(for='latitude',class='control-label') Latitude
+            div.controls
+                input(type='text',id='latitude',name='latitude', value=location.latt,class='input-xlarge')
+        div.control-group
+            label(for='longitude',class='control-label') Longitude
+            div.controls
+                input(type='text',id='longitude',name='longitude', value=location.long,class='input-xlarge')
+        input(type='submit', value='Save Locally')
+
+  script(type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/geolocator/2.1.1/geolocator.min.js')
+  
+  div(id='map-holder')
+    div(id='map-canvas',style='width:600px;height:400px')
+        span Loading Location
+
+  script(type="text/javascript").
+    geolocator.config({
+        language: "en",
+        google: {
+            version: "3",
+            key: "AIzaSyDRi6DFuiEB7d9U6iqDoEXEGyroWKJ4_8s"
+        }
+    });
+
+
+    function showMap() { 
+
+       var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumWait: 10000,     // max wait time for desired accuracy 
+            maximumAge: 0,          // disable cache 
+            desiredAccuracy: 1,    // meters 
+            fallbackToIP: true,     // fallback to IP if Geolocation fails or rejected 
+            addressLookup: true,    // requires Google API key if true 
+            timezone: true,         // requires Google API key if true 
+            map: "map-canvas",      // interactive map element id (or options object) 
+            staticMap: true         // map image URL (boolean or options object) 
+       };
+
+       geolocator.locate(options, function (err, location) {
+            if (err) return console.log(err);
+            $('#latitude').attr('value', location.coords.latitude);
+            $('#longitude').attr('value', location.coords.longitude);
+            console.log(location);
+       });
+    }
+
+    window.onload = function () {
+    
+        showMap();
+
+    };
+
+ 

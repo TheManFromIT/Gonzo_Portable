@@ -4,6 +4,8 @@ var router = express.Router();
 
 var seneca = require('seneca')().client(8487, 'localhost');
 
+var publicIp = require('public-ip');
+
 /* GET monitor page. */
 router.get('/', function (req, res) {
 
@@ -19,8 +21,11 @@ router.post('/monitoring', function (req, res) {
     var bssid = req.param('bssid');
     var name = req.param('network');
 
-    res.render('monitoring', { title: 'Monitor Network', network: name, bssid: bssid });
+    publicIp.v4().then(ip => {
 
+        res.render('monitoring', { title: 'Monitor Network', network: name, bssid: bssid, publicIp: ip });
+
+    });
 
 });
 

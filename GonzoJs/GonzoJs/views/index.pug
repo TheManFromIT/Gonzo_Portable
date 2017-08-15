@@ -6,8 +6,23 @@ block content
 
   p Welcome to #{title}
 
-  form(action='/list',method='')
-    input(type='submit',value='List Networks',data-transition='fade', data-theme='c')
+  p Current Location
 
-  form(action='/monitor',method='')
-    input(type='submit',value='Monitor Network',data-transition='fade', data-theme='c')
+  form(id='currentLocation')
+    fieldset
+        div#legand
+            legend Note: Any Location information is not stored or sent to any other point.
+        div.control-group
+            label(for='latitude',class='control-label') Latitude
+            div.controls
+                input(type='text',id='latitude',name='latitude',value=location.latt,class='input-xlarge')
+        div.control-group
+            label(for='longitude',class='control-label') Longitude
+            div.controls
+                input(type='text',id='longitude',name='longitude',value=location.long,class='input-xlarge')
+  
+  div
+    a(id='setupLocation', href='/location') Setup Location
+  div
+    a(id='functions', href='/functions') Goto Functions
+
