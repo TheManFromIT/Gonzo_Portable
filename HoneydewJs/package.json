@@ -11,6 +11,7 @@
     "monk": "^6.0.1",
     "node-wifi-scanner": "^1.0.0",
     "oui": "^6.3.10",
+    "ping-wrapper3": "0.0.11",
     "seneca": "^3.4.0",
     "seneca-admin": "^0.2.0",
     "seneca-auth": "^1.1.0",

@@ -1,20 +1,46 @@
 ﻿'use strict';
+var os = require('os');
 var wifiscanner = require('node-wifi-scanner');
 var oui = require('oui');
-var os = require('os');
+var ping = require("ping-wrapper3");
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/honeydew');
+
 var scanCollection = db.get('scancollection');
+var pingCollection = db.get('pingcollection');
 
 var list = [];
 
-var timer = null;
+var scanTimer = null;
+var pingTimer = null;
+
+var pingRunning = false;
 
 var long = 0;
 var latt = 0;
 
 module.exports = {
+
+    pingAddress: function (target, options, callback) {
+
+        var exec = ping(target, options); // default 10 packets
+
+        var results = [];
+
+        exec.on("data", function (data) {
+            // { no: 1, bytes: 64, time: 54, ttl: 1 }
+            results.push(data);
+        });
+
+        exec.on("exit", function (data) {
+            // { sent: 10, recieved: 10, loss: 0, time: 9010 }
+            results.push(data);
+
+            callback(results);
+        });
+
+    },
 
     getNetworks: function (callback) {
 
@@ -23,15 +49,17 @@ module.exports = {
     },
 
     startScanning: function () {
-
-        timer = setInterval(scan, 3000);
+        
+        scanTimer = setInterval(scan, 3000);
 
     },
 
     stopScanning: function () {
 
-        if (timer !== null) {
-            clearInterval(timer);
+        if (scanTimer !== null) {
+
+            clearInterval(scanTimer);
+
         }
 
     },
@@ -39,14 +67,14 @@ module.exports = {
     setLocation: function (latt, long) {
         this.latt = latt;
         this.long = long;
-        
+
     },
 
     getLocation: function () {
         return { latt: this.latt, long: this.long };
     }
-
 };
+
 
 function scan() {
 

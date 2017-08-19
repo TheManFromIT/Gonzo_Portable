@@ -18,6 +18,19 @@ module.exports = function bunsen(options) {
 
     });
 
+    this.add('role: analysis, cmd: ping', function (msg, respond) {
+
+        var target = msg.target || "www.google.com";
+        var count = msg.count || 5;
+
+        var data = microscope.pingAddress(target, { options: count }, function (data) {
+
+            respond(null, data);
+
+        });
+
+    });
+
     this.add('role: analysis, cmd: scan', function (msg, respond) {
 
         var data = microscope.getNetworks(function (data) {
@@ -48,7 +61,7 @@ module.exports = function bunsen(options) {
             if (home === null) {
                 respond(null, { found: false });
             }
-            
+
 
             respond(null, { found: true });
 
@@ -57,4 +70,4 @@ module.exports = function bunsen(options) {
     });
 
 
-}
+};
