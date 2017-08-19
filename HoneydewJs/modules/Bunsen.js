@@ -31,6 +31,20 @@ module.exports = function bunsen(options) {
 
     });
 
+    this.add('role: analysis, cmd: describe', function (msg, respond) {
+
+        for (network of list) {
+
+            if (network.bssid === msg.bssid) {
+                respond(null, network);
+                break;
+            }
+
+        }
+
+    });
+
+
     this.add('role: analysis, cmd: scan', function (msg, respond) {
 
         var data = microscope.getNetworks(function (data) {

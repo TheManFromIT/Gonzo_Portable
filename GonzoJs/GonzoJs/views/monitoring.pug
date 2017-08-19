@@ -1,5 +1,6 @@
 ﻿extends layout
 
+
 block content
   h1= title
   img(src="/images/gonzo.jpg", alt="Gonzo Muppet Hunter")
@@ -7,41 +8,14 @@ block content
   p Monitoring #{network}
   
   p Status of Network
+
+  script(type="text/javascript", src="/javascripts/monitor.js")
+  script(type="text/javascript", src="/javascripts/bundle.js")
   
   table
     thead
         th MAC
         th Status
     tbody
-        td(id='mac')
-           p #{bssid}
+        td(id='bssid') #{bssid}
         td(id='status')
-
-  script(type="text/javascript").
-    function getWsAbsoluteUrl(relative) {
-    var loc = window.location;
-    var proto = loc.protocol === "https:" ? "wss://" : "ws://";
-    var port = loc.port || (loc.protocol === "https:" ? 443 : 80);
-    return proto + loc.hostname + ":" + port + relative;}
-
-    // create WebSocket client
-    // I'm not using `ws` here, because it doesn't support
-    // EventEmitter interface (i.e. the one that lets you call `on`)
-    var WebSocket = require('simple-websocket');
-    var ws = new WebSocket(getWsAbsoluteUrl('/'));
-
-    // extend ws to decode messages
-    require('express-ws-rpc')(ws);
-
-    // method definition
-    ws.on('addClient', function (a, b, result) {
-        result(null, a + b);
-    });
-
-    // when we get connected
-    ws.on('connect', function () {
-        // call method that is defined on the server
-        ws.call('addServer', 10, 20, function (err, sum) {
-            console.log('Server: 10 + 20 = ', sum, err);
-        });
-    });

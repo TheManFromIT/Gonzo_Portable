@@ -9,7 +9,7 @@ block content
   form(id='currentLocation', method='POST', action='/location/setup')
     fieldset
         div#legand
-            legend Note: Any Location information is not stored or sent to any other point.
+            legend Note: Any Location information is only saved in loacal database.
         div.control-group
             label(for='latitude',class='control-label') Latitude
             div.controls
@@ -24,7 +24,8 @@ block content
   
   div(id='map-holder')
     div(id='map-canvas',style='width:600px;height:400px')
-        span Loading Location
+        span
+        span Please Wait Loading Location....
 
   script(type="text/javascript").
     geolocator.config({

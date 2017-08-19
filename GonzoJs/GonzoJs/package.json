@@ -23,6 +23,8 @@
     "pug": "^2.0.0-beta6",
     "seneca": "^3.4.0",
     "seneca-jsonrest-api": "^0.3.1",
-    "serve-favicon": "^2.3.0"
+    "serve-favicon": "^2.3.0",
+    "simple-websocket": "^5.0.2",
+    "uuid": "^3.1.0"
   }
 }

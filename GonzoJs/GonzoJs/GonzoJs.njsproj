@@ -38,6 +38,15 @@
     <Compile Include="routes\index.js" />
     <Compile Include="routes\api.js" />
     <Compile Include="routes\users.js" />
+    <Compile Include="public\javascripts\bundle.js" />
+    <Compile Include="public\javascripts\monitor.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <SubType>Content</SubType>
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
     <Content Include="public\images\gonzo.jpg" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />

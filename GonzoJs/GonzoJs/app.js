@@ -7,6 +7,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+const uuidv4 = require('uuid/v4');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var list = require('./routes/list');
@@ -16,7 +18,11 @@ var monitor = require('./routes/monitor');
 var status = require('./routes/status');
 var functions = require('./routes/functions');
 
+
+
 var app = express();
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,22 +57,37 @@ app.ws('/', function (ws, req) {
     // extend ws to decode messages
     wsrpc(ws);
 
-    // define method that can be called from the client
-    ws.on('addServer', function (a, b, result) {
-        result(null, a + b);
+    var monitor_bssid = null;
+
+    ws.on('monitor', function (bssid, result) {
+
+        monitor_bssid = bssid;
+
+        seneca.act({ role: 'analysis', cmd: 'describe', bssid: monitor_bssid }, function (error, description) {
+
+            result(null, description);
+
+        });
+
+
     });
 
-    // define method depending on the state
-    // each connected client owns its own `curr`
-    var curr = 0;
-    ws.on('next', function (result) {
-        result(null, curr++);
+    
+    //ws.on('status', function (result) {
+    //    result(null, curr++);
+    //});
+
+    seneca.act({ role: 'analysis', cmd: 'examine', bssid: monitor_bssid }, function (error, result) {
+
+        ws.call('report', result, function (err, result) {
+
+            result(null);
+
+        });
+
     });
 
-    // call method that is defined on the client
-    ws.call('addClient', 1, 2, function (err, sum) {
-        console.log('Client: 1 + 2 = ', sum, err);
-    });
+
 });
 
 
