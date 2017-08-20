@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prestart": "gulp",
     "start": "node app"
   },
   "description": "GonzoJs",
@@ -18,6 +19,8 @@
     "express-ws": "^3.0.0",
     "express-ws-rpc": "0.0.3",
     "geolocator": "^2.1.1",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
     "morgan": "^1.7.0",
     "public-ip": "^2.3.5",
     "pug": "^2.0.0-beta6",

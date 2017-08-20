@@ -6,24 +6,24 @@ microscope.startScanning();
 
 module.exports = function bunsen(options) {
 
-    this.add('role: configuration, cmd: set, type: location', function (msg, respond) {
+    this.add('role:configuration,cmd:set,type:location', function (msg, respond) {
 
         microscope.setLocation(msg.latt, msg.long);
 
     });
 
-    this.add('role: configuration, cmd: get, type: location', function (msg, respond) {
+    this.add('role:configuration,cmd:get,type:location', function (msg, respond) {
 
         respond(null, microscope.getLocation());
 
     });
 
-    this.add('role: analysis, cmd: ping', function (msg, respond) {
+    this.add('role:analysis,cmd:ping', function (msg, respond) {
 
         var target = msg.target || "www.google.com";
         var count = msg.count || 5;
 
-        var data = microscope.pingAddress(target, { options: count }, function (data) {
+        microscope.pingAddress(target, { options: count }, function (data) {
 
             respond(null, data);
 
@@ -31,23 +31,23 @@ module.exports = function bunsen(options) {
 
     });
 
-    this.add('role: analysis, cmd: describe', function (msg, respond) {
+    this.add('role:analysis,cmd:describe', function (msg, respond) {
 
-        for (network of list) {
+        var dave = "hello";
 
-            if (network.bssid === msg.bssid) {
-                respond(null, network);
-                break;
-            }
+        microscope.getNetworks(function (data) {
 
-        }
+            var entry = data.find(e => e.network.mac === msg.bssid);
+            
+            respond(null, entry);
+
+        });
 
     });
 
+    this.add('role:analysis,cmd:scan', function (msg, respond) {
 
-    this.add('role: analysis, cmd: scan', function (msg, respond) {
-
-        var data = microscope.getNetworks(function (data) {
+        microscope.getNetworks(function (data) {
 
             respond(null, data);
 
@@ -55,7 +55,7 @@ module.exports = function bunsen(options) {
 
     });
 
-    this.add('role: analysis, cmd: examine', function (msg, respond) {
+    this.add('role:analysis,cmd:examine', function (msg, respond) {
 
         microscope.getNetworks(function (data) {
 

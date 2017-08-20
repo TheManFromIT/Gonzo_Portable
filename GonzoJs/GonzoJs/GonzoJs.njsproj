@@ -30,6 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="Gruntfile.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\functions.js" />
     <Compile Include="routes\location.js" />
     <Compile Include="routes\status.js" />

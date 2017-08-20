@@ -91,20 +91,23 @@ function scan() {
 
             var network = data[number];
 
-            var result = oui(network.mac);
+            if (network.mac) {
 
-            if (result !== null) {
-                result = result.replace(/\n/g, " ");
-            } else {
-                result = "UNRECOGNISED";
+                var result = oui(network.mac);
+
+                if (result !== null) {
+                    result = result.replace(/\n/g, " ");
+                } else {
+                    result = "UNRECOGNISED";
+                }
+
+                if (network.ssid === null || network.ssid === "") {
+                    network.ssid = "<HIDDEN>";
+                }
+
+                extendedData.push({ network: network, manufacturer: result });
+
             }
-
-            if (network.ssid === null || network.ssid === "") {
-                network.ssid = "<HIDDEN>";
-            }
-
-            extendedData.push({ network: network, manufacturer: result });
-
         }
 
         // Sort by Signal Strength and Channel

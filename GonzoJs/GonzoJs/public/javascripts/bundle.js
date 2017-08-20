@@ -6175,42 +6175,55 @@ function config (name) {
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],33:[function(require,module,exports){
-function getWsAbsoluteUrl(relative) {
-    var loc = window.location;
-    var proto = loc.protocol === "https:" ? "wss://" : "ws://";
-    var port = loc.port || (loc.protocol === "https:" ? 443 : 80);
-    return proto + loc.hostname + ":" + port + relative;
-}
+'use strict';
+$(function () {
 
-// create WebSocket client
-// I'm not using `ws` here, because it doesn't support
-// EventEmitter interface (i.e. the one that lets you call `on`)
-var WebSocket = require('simple-websocket');
-var ws = new WebSocket(getWsAbsoluteUrl('/'));
+    var bssid = $('td#bssid').text();
 
-// extend ws to decode messages
-require('express-ws-rpc')(ws);
+    function getWsAbsoluteUrl(relative) {
+        var loc = window.location;
+        var proto = loc.protocol === "https:" ? "wss://" : "ws://";
+        var port = loc.port || (loc.protocol === "https:" ? 443 : 80);
+        return proto + loc.hostname + ":" + port + relative;
+    }
 
-ws.on('status', function (result) {
+    // create WebSocket client
+    // I'm not using `ws` here, because it doesn't support
+    // EventEmitter interface (i.e. the one that lets you call `on`)
+    var WebSocket = require('simple-websocket');
+    var ws = new WebSocket(getWsAbsoluteUrl('/gonzo'));
 
-    // Gives Server a Callback for Status of Network Being Monitored
-    result(null);
+    // extend ws to decode messages
+    require('express-ws-rpc')(ws);
 
-});
+    //ws.on('status', function (result) {
 
-ws.on('description', function (description) {
+    //    // Gives Server a Callback for Status of Network Being Monitored
+    //    result(null);
 
-    // Gives Server a Callback for Description of Network Being Monitored
-    result(null);
+    //});
 
-});
+    ws.on('report', function (description, result) {
 
-// when we get connected
-ws.on('connect', function () {
+        // Gives Server a Callback for Description of Network Being Monitored
+        result(null);
 
-    ws.call('monitor', '#{bssid}', function (err, session) {
-        console.log('Monitoring Session ' + session);
     });
 
+    // when we get connected
+    ws.on('connect', function () {
+
+        ws.call('monitor', bssid, function (err, description) {
+
+            $('td#essid').text(description.network.ssid);
+            $('td#channel').text(description.network.channel);
+            $('td#rssi').text(description.network.rssi);
+            $('td#status').text("UNKNOWN");
+
+            console.log('Monitoring ' + description.network.ssid);
+        });
+
+
+    });
 });
 },{"express-ws-rpc":11,"simple-websocket":18}]},{},[33]);

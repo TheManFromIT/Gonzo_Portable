@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var wsrpc = require('express-ws-rpc');
 
 const uuidv4 = require('uuid/v4');
 
@@ -18,11 +19,7 @@ var monitor = require('./routes/monitor');
 var status = require('./routes/status');
 var functions = require('./routes/functions');
 
-
-
 var app = express();
-
-
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,11 +48,13 @@ app.use('/functions', functions);
 var wss = require('express-ws')(app).wss;
 
 // on websocket request to the root
-app.ws('/', function (ws, req) {
+app.ws('/gonzo', function (ws, req) {
     // this function gets called on each connection
 
     // extend ws to decode messages
     wsrpc(ws);
+
+    var seneca = require('seneca')().client(8487, 'localhost');
 
     var monitor_bssid = null;
 
@@ -79,7 +78,7 @@ app.ws('/', function (ws, req) {
 
     seneca.act({ role: 'analysis', cmd: 'examine', bssid: monitor_bssid }, function (error, result) {
 
-        ws.call('report', result, function (err, result) {
+        ws.call('report', monitor_bssid, function (err, result) {
 
             result(null);
 

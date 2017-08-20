@@ -8,14 +8,20 @@ block content
   p Monitoring #{network}
   
   p Status of Network
-
-  script(type="text/javascript", src="/javascripts/monitor.js")
-  script(type="text/javascript", src="/javascripts/bundle.js")
-  
+ 
   table
     thead
         th MAC
+        th SSID
+        th Channel
+        th RSSI
         th Status
     tbody
         td(id='bssid') #{bssid}
+        td(id='essid')
+        td(id='channel')
+        td(id='rssi')
         td(id='status')
+
+  script(type="text/javascript", src="/javascripts/bundle.js")
+  
