@@ -33,8 +33,6 @@ module.exports = function bunsen(options) {
 
     this.add('role:analysis,cmd:describe', function (msg, respond) {
 
-        var dave = "hello";
-
         microscope.getNetworks(function (data) {
 
             var entry = data.find(e => e.network.mac === msg.bssid);
@@ -57,27 +55,31 @@ module.exports = function bunsen(options) {
 
     this.add('role:analysis,cmd:examine', function (msg, respond) {
 
-        microscope.getNetworks(function (data) {
+        microscope.getNetworks(function (data) {            
 
             // Find Our Network
-
-            var home = null;
-
-            for (network of list) {
-
-                if (network.bssid === msg.bssid) {
-                    home = network;
-                    break;
-                }
-
-            }
+            var home = data.find(e => e.network.mac === msg.bssid);
 
             if (home === null) {
-                respond(null, { found: false });
+                respond(null, { status: 'NOT FOUND' });
+            }
+                        
+            var status = 'UNKNOWN';
+
+            // Look for networks on the same channel            
+            var conflicts = data.filter(e => e.network.channel === home.network.channel && e.network.mac !== home.network.ssid);
+
+            if (conflicts === null) {
+
+                status = 'CLEAR';
+
+            } else {
+
+                status = 'CONFLICT';
+
             }
 
-
-            respond(null, { found: true });
+            respond(null, { status: status });
 
         });
 

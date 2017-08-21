@@ -26,10 +26,14 @@ $(function () {
 
     //});
 
-    ws.on('report', function (description, result) {
+    // Gives Server a Callback for Description of Network Being Monitored
 
-        // Gives Server a Callback for Description of Network Being Monitored
-        result(null);
+    ws.on('report', function (report, result) {
+
+        // Display Status (Callback from Examine)
+        $('td#status').text(report.status);
+        
+        result({ acknowledged: true });
 
     });
 
@@ -45,7 +49,5 @@ $(function () {
 
             console.log('Monitoring ' + description.network.ssid);
         });
-
-
     });
 });

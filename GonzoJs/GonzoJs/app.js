@@ -68,6 +68,15 @@ app.ws('/gonzo', function (ws, req) {
 
         });
 
+        seneca.act({ role: 'analysis', cmd: 'examine', bssid: monitor_bssid }, function (error, result) {
+
+            ws.call('report', result, function (err, reportResult) {
+
+                reportResult(null);
+
+            });
+
+        });
 
     });
 
@@ -76,15 +85,6 @@ app.ws('/gonzo', function (ws, req) {
     //    result(null, curr++);
     //});
 
-    seneca.act({ role: 'analysis', cmd: 'examine', bssid: monitor_bssid }, function (error, result) {
-
-        ws.call('report', monitor_bssid, function (err, result) {
-
-            result(null);
-
-        });
-
-    });
 
 
 });
